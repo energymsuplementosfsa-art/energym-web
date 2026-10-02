@@ -36,7 +36,15 @@ Pendiente conocido: `creatine-frutos-rojos.jpg/webp` sigue con una foto de menor
 - Evaluar dominio propio en vez de `workers.dev` (mejora SEO y preview de links compartidos).
 - ~~Agregar `sitemap.xml`/`robots.txt`~~ (hecho). Si se cambia de dominio, actualizar la URL en: `robots.txt`, `sitemap.xml`, `<link rel="canonical">`, `og:url`/`og:image`/`twitter:image` y `SITE_URL` en `index.html`.
 - Aclarar si hay diferencia de precio entre transferencia y efectivo en la sección de medios de pago.
-- **Último paso (después de lo anterior):** rediseño visual con criterio de product design — más estético, con identidad propia de marca y que no se vea "hecho por IA" (evitar los clichés de degradés neón, glow cyan, emojis como íconos, cards genéricas). Se encara cuando el resto del backlog esté cerrado.
+- ~~Rediseño visual~~ (hecho en la rama `rediseno`, pendiente de aprobación del dueño antes de mergear a `main`).
+
+## Sistema visual (rediseño)
+
+- Color de marca = el azul marino del logo y de los fondos de las fotos (`--navy`, `--photo-bg`). Fondo general claro tipo papel (`--paper`), texto `--ink`, un único acento `--blue`. Tema fijo, no cambia con modo oscuro.
+- Tipografías: `Barlow Condensed` itálica 800 en mayúsculas para títulos (eco del logotipo) y `Barlow` para texto.
+- Evitar volver a: neón/glow cian, grillas de fondo, fuente monoespaciada decorativa, emojis como íconos, badges repetidos en cada card. Íconos = SVG inline de trazo fino.
+- Fotos de producto con `object-fit:contain` sobre `--photo-bg` (hay fotos verticales: Bro's, creatina frutos rojos, collagen plus) — no usar `cover` en catálogo porque las recorta.
+- El precio del cartel del hero se toma de `PRODUCTS` por JS (no hardcodear); los contadores de las categorías también.
 
 ## Cuidado con las cuentas
 
