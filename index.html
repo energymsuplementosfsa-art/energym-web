@@ -6,23 +6,22 @@
 <title>EnerGym Suplementos — Potenciá tus metas</title>
 <meta name="description" content="Suplementos deportivos de calidad en Formosa: proteínas, creatina, energía y recuperación. Stock real, atención por WhatsApp y envíos a todo el país."/>
 <meta name="theme-color" content="#070C1E"/>
-<link rel="canonical" href="https://energymsuplementos.netlify.app/"/>
+<link rel="canonical" href="https://energym-web.energym-suplementos-fsa.workers.dev/"/>
 
 <!-- Open Graph / redes sociales -->
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="EnerGym Suplementos"/>
 <meta property="og:title" content="EnerGym Suplementos — Potenciá tus metas"/>
 <meta property="og:description" content="Suplementos deportivos de calidad en Formosa: proteínas, creatina, energía y recuperación. Stock real y envíos a todo el país."/>
-<meta property="og:image" content="https://energymsuplementos.netlify.app/images/og-cover.jpg"/>
+<meta property="og:image" content="https://energym-web.energym-suplementos-fsa.workers.dev/images/og-cover.jpg"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:url" content="https://energymsuplementos.netlify.app/"/>
+<meta property="og:url" content="https://energym-web.energym-suplementos-fsa.workers.dev/"/>
 <meta property="og:locale" content="es_AR"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="EnerGym Suplementos — Potenciá tus metas"/>
 <meta name="twitter:description" content="Suplementos deportivos de calidad en Formosa. Stock real y envíos a todo el país."/>
-<meta name="twitter:image" content="https://energymsuplementos.netlify.app/images/og-cover.jpg"/>
-<!-- NOTA: reemplazá "energymsuplementos.netlify.app" de las etiquetas de arriba por tu dominio real una vez publicado el sitio -->
+<meta name="twitter:image" content="https://energym-web.energym-suplementos-fsa.workers.dev/images/og-cover.jpg"/>
 
 <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png"/>
@@ -659,8 +658,7 @@
 <div>
 <h2>Hablemos.</h2>
 <p class="lead">¿Tenés dudas sobre nuestros productos? Escribinos, te respondemos rápido.</p>
-<form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-<input name="form-name" type="hidden" value="contact"/>
+<form id="contact-form" name="contact">
 <p style="position:absolute;left:-9999px;"><label>No completar: <input name="bot-field"/></label></p>
 <div class="field"><label for="f-name">Nombre</label><input id="f-name" name="name" placeholder="Tu nombre" required type="text"/></div>
 <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" placeholder="tu@email.com" required type="email"/></div>
@@ -737,7 +735,7 @@
 
   /* ================= CONFIG ================= */
   const WHATSAPP_NUMBER = '5493704348191';
-  const SITE_URL = 'https://energymsuplementos.netlify.app'; // actualizar con el dominio real luego del deploy
+  const SITE_URL = 'https://energym-web.energym-suplementos-fsa.workers.dev'; // actualizar con el dominio real luego del deploy
 
   /* ================= DATA ================= */
   const CATEGORY_LABELS = {
@@ -1206,23 +1204,17 @@
   const formSubmit = document.getElementById('formSubmit');
   contactForm.addEventListener('submit', function(e){
     e.preventDefault();
-    const data = new FormData(contactForm);
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const message = document.getElementById('f-msg').value.trim();
     formSubmit.disabled = true;
-    formNote.textContent = 'Enviando...';
-    fetch('/', {
-      method: 'POST',
-      headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: new URLSearchParams(data).toString()
-    })
-    .then(() => {
-      formNote.textContent = '¡Mensaje enviado! Te respondemos a la brevedad.';
-      showToast('¡Mensaje enviado!');
-      contactForm.reset();
-    })
-    .catch(() => {
-      formNote.textContent = 'Hubo un error al enviar. Probá de nuevo o escribinos por WhatsApp.';
-    })
-    .finally(() => { formSubmit.disabled = false; });
+    formNote.textContent = 'Abriendo WhatsApp...';
+    const text = `Hola, soy ${name} (${email}). ${message}`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    formNote.textContent = 'Te llevamos a WhatsApp para enviar tu consulta.';
+    showToast('Abriendo WhatsApp…');
+    contactForm.reset();
+    formSubmit.disabled = false;
   });
 
   /* ================= BACK TO TOP ================= */
