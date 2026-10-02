@@ -40,6 +40,7 @@ Pendiente conocido: `creatine-frutos-rojos.jpg/webp` sigue con una foto de menor
 
 ## Sistema visual (rediseño)
 
+- Header navy con el logo real (`images/energym-logo.png`, recortado del banner con fondo transparente — es blanco, solo sirve sobre fondos oscuros).
 - Color de marca = el azul marino del logo y de los fondos de las fotos (`--navy`, `--photo-bg`). Fondo general claro tipo papel (`--paper`), texto `--ink`, un único acento `--blue`. Tema fijo, no cambia con modo oscuro.
 - Tipografía: una sola familia, `Archivo` variable (ejes `wdth` 62–125 e itálica). Títulos `font-stretch:62%` itálica 850–900 en mayúsculas; precios y números `font-stretch:125%` (contraste condensada/expandida); texto en ancho normal. Acento extra `--volt` (lima de los envases) solo en detalles: selector del hero, sticker de ahorro en combos, rombos del ticker.
 - Interacción: el hero tiene selector de objetivo (`HERO_GOALS` en el JS, rota solo cada 4,5s hasta que la persona elige), ticker de datos/marcas, aparición al scrollear (`.reveal` + IntersectionObserver) y "bump" del botón del carrito. Todo se desactiva con `prefers-reduced-motion` (ojo: Chrome headless lo reporta activado — emular `no-preference` para probar animaciones).
