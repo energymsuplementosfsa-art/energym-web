@@ -36,7 +36,7 @@ Pendiente conocido: `creatine-frutos-rojos.jpg/webp` sigue con una foto de menor
 - Evaluar dominio propio en vez de `workers.dev` (mejora SEO y preview de links compartidos).
 - ~~Agregar `sitemap.xml`/`robots.txt`~~ (hecho). Si se cambia de dominio, actualizar la URL en: `robots.txt`, `sitemap.xml`, `<link rel="canonical">`, `og:url`/`og:image`/`twitter:image` y `SITE_URL` en `index.html`.
 - Aclarar si hay diferencia de precio entre transferencia y efectivo en la sección de medios de pago.
-- ~~Rediseño visual~~ (hecho en la rama `rediseno`, pendiente de aprobación del dueño antes de mergear a `main`).
+- ~~Rediseño visual~~ (hecho y aprobado por el dueño, ya en `main`).
 
 ## Sistema visual (rediseño)
 
