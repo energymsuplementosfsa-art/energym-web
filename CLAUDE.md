@@ -41,10 +41,12 @@ Pendiente conocido: `creatine-frutos-rojos.jpg/webp` sigue con una foto de menor
 ## Sistema visual (rediseño)
 
 - Color de marca = el azul marino del logo y de los fondos de las fotos (`--navy`, `--photo-bg`). Fondo general claro tipo papel (`--paper`), texto `--ink`, un único acento `--blue`. Tema fijo, no cambia con modo oscuro.
-- Tipografías: `Barlow Condensed` itálica 800 en mayúsculas para títulos (eco del logotipo) y `Barlow` para texto.
+- Tipografía: una sola familia, `Archivo` variable (ejes `wdth` 62–125 e itálica). Títulos `font-stretch:62%` itálica 850–900 en mayúsculas; precios y números `font-stretch:125%` (contraste condensada/expandida); texto en ancho normal. Acento extra `--volt` (lima de los envases) solo en detalles: selector del hero, sticker de ahorro en combos, rombos del ticker.
+- Interacción: el hero tiene selector de objetivo (`HERO_GOALS` en el JS, rota solo cada 4,5s hasta que la persona elige), ticker de datos/marcas, aparición al scrollear (`.reveal` + IntersectionObserver) y "bump" del botón del carrito. Todo se desactiva con `prefers-reduced-motion` (ojo: Chrome headless lo reporta activado — emular `no-preference` para probar animaciones).
+- El título del hero es `nowrap` y su tamaño está calculado para que entre "TU RECUPERACIÓN." (la palabra más larga). Si se agrega un objetivo con una palabra más larga, recalcular.
 - Evitar volver a: neón/glow cian, grillas de fondo, fuente monoespaciada decorativa, emojis como íconos, badges repetidos en cada card. Íconos = SVG inline de trazo fino.
 - Fotos de producto con `object-fit:contain` sobre `--photo-bg` (hay fotos verticales: Bro's, creatina frutos rojos, collagen plus) — no usar `cover` en catálogo porque las recorta.
-- El precio del cartel del hero se toma de `PRODUCTS` por JS (no hardcodear); los contadores de las categorías también.
+- El cartel de precio del hero se toma de `PRODUCTS` por JS (no hardcodear); los contadores de las categorías también.
 
 ## Cuidado con las cuentas
 

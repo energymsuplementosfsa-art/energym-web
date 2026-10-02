@@ -32,7 +32,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&display=swap" rel="stylesheet"/>
+<script>document.documentElement.classList.add("js");</script>
 
 <style>
   :root{
@@ -53,17 +54,19 @@
     --radius:6px;
     --maxw:1240px;
     --header-h:68px;
-    --display:'Barlow Condensed',sans-serif;
-    --body:'Barlow',sans-serif;
+    --display:'Archivo',sans-serif;
+    --body:'Archivo',sans-serif;
+    --volt:#D6FF3D;
     color-scheme:light;
   }
   /* Identidad: el azul marino del logo y de las fotos de producto es el color de marca.
-     Fondo claro tipo "papel", tipografía condensada itálica (como el logotipo) y un solo
-     acento azul. Es un tema fijo: no cambia con el modo claro/oscuro del sistema. */
+     Fondo claro tipo "papel". Una sola familia (Archivo variable) en tres anchos:
+     extra-condensada itálica para títulos, expandida para precios/números, normal para texto.
+     Acento azul + un toque de "volt" (el verde lima de los envases) solo en detalles. Es un tema fijo: no cambia con el modo claro/oscuro del sistema. */
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{font-family:var(--body);font-size:16px;color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased;}
-  h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spacing:-.005em;color:var(--ink);}
+  h1,h2,h3{font-family:var(--display);font-stretch:62%;font-weight:850;line-height:.98;letter-spacing:-.01em;color:var(--ink);}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
   a{text-decoration:none;color:inherit;}
   ul{list-style:none;}
@@ -77,7 +80,13 @@
   :focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
   .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 
+  .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s);}
+  .js .reveal.in{opacity:1;transform:none;}
+  .nav-cta.bump{animation:bump .45s ease;}
+  @keyframes bump{30%{transform:scale(1.12);}60%{transform:scale(.96);}}
   @media (prefers-reduced-motion:reduce){
+    .js .reveal{opacity:1;transform:none;}
+    .nav-cta.bump{animation:none;}
     html{scroll-behavior:auto;}
     *{transition:none !important;}
   }
@@ -86,7 +95,7 @@
   header{position:sticky;top:0;z-index:100;background:rgba(244,243,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
   .nav{display:flex;align-items:center;justify-content:space-between;min-height:var(--header-h);gap:20px;}
   .wordmark{display:flex;flex-direction:column;line-height:1;flex-shrink:0;}
-  .wordmark b{font-family:var(--display);font-weight:800;font-style:italic;font-size:26px;letter-spacing:.01em;color:var(--navy);text-transform:uppercase;}
+  .wordmark b{font-family:var(--display);font-stretch:62%;font-weight:900;font-style:italic;font-size:28px;letter-spacing:0;color:var(--navy);text-transform:uppercase;}
   .wordmark small{font-size:9.5px;font-weight:600;letter-spacing:.32em;color:var(--ink-3);text-transform:uppercase;margin-top:3px;padding-left:2px;}
   .menu{display:flex;gap:32px;font-weight:500;font-size:15px;color:var(--ink-2);}
   .menu a{padding:6px 0;border-bottom:1.5px solid transparent;transition:color .15s ease,border-color .15s ease;}
@@ -104,7 +113,7 @@
   .menu-toggle[aria-expanded="true"] span::before{top:0;transform:rotate(45deg);}
   .menu-toggle[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg);}
   .mobile-panel{display:none;flex-direction:column;padding:4px 24px 16px;border-top:1px solid var(--line);background:var(--paper);}
-  .mobile-panel a{padding:14px 0;font-family:var(--display);font-weight:600;font-size:22px;text-transform:uppercase;border-bottom:1px solid var(--line);}
+  .mobile-panel a{padding:14px 0;font-family:var(--display);font-stretch:62%;font-style:italic;font-weight:800;font-size:28px;text-transform:uppercase;border-bottom:1px solid var(--line);}
   .mobile-panel a:last-child{border-bottom:none;}
   .mobile-panel.open{display:flex;}
 
@@ -137,21 +146,36 @@
   .hero{position:relative;padding:0;background:radial-gradient(120% 90% at 72% 50%,#17307A 0%,var(--navy) 45%,var(--navy-deep) 100%);color:#fff;overflow:hidden;}
   .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;min-height:min(640px,calc(100svh - var(--header-h)));padding-top:56px;padding-bottom:56px;}
   .hero .kicker{color:var(--blue-soft);}
-  .hero h1{color:#fff;font-size:clamp(54px,9vw,112px);font-weight:800;font-style:italic;text-transform:uppercase;line-height:.92;margin-bottom:26px;}
-  .hero h1 span{display:block;color:var(--blue-soft);}
+  .hero-copy{min-width:0;}
+  .hero h1{color:#fff;font-size:clamp(44px,6vw,86px);font-weight:900;font-style:italic;text-transform:uppercase;line-height:.88;margin-bottom:28px;}
+  .hero h1 .hero-word{display:block;color:var(--blue-soft);white-space:nowrap;}
+  .hero-word span{display:inline-block;transition:opacity .3s ease,transform .3s ease;}
+  .hero-word.swap span{opacity:0;transform:translateY(18%);}
+  .goal-switch{display:inline-flex;gap:4px;padding:4px;margin-bottom:28px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line-dark);}
+  .goal-switch button{border:none;background:transparent;color:rgba(255,255,255,.75);font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;cursor:pointer;transition:background .2s ease,color .2s ease;}
+  .goal-switch button:hover{color:#fff;}
+  .goal-switch button[aria-pressed="true"]{background:var(--volt);color:var(--ink);}
   .hero p{font-size:18.5px;color:rgba(255,255,255,.78);max-width:470px;margin-bottom:36px;}
   .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
-  .hero-visual{position:relative;display:flex;justify-content:center;}
-  .hero-visual img{width:100%;max-width:520px;height:auto;-webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent 100%);mask-image:radial-gradient(closest-side,#000 70%,transparent 100%);}
-  .hero-price{position:absolute;right:6%;bottom:12%;background:#fff;color:var(--ink);padding:12px 16px;border-radius:var(--radius);box-shadow:0 18px 40px -16px rgba(0,0,0,.45);line-height:1.2;}
+  .hero-visual{position:relative;display:grid;justify-items:center;}
+  .hero-visual picture{grid-area:1/1;width:100%;max-width:520px;transition:opacity .5s ease,transform .6s ease;}
+  .hero-visual picture:not(.active){opacity:0;transform:translateX(24px) scale(.96);pointer-events:none;}
+  .hero-visual img{width:100%;height:auto;-webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent 100%);mask-image:radial-gradient(closest-side,#000 70%,transparent 100%);}
+  .hero-price{position:absolute;right:6%;bottom:12%;z-index:2;transition:transform .2s ease;background:#fff;color:var(--ink);padding:12px 16px;border-radius:var(--radius);box-shadow:0 18px 40px -16px rgba(0,0,0,.45);line-height:1.2;}
+  .hero-price:hover{transform:translateY(-2px);}
   .hero-price small{display:block;font-size:12px;color:var(--ink-3);font-weight:500;}
-  .hero-price strong{font-family:var(--display);font-size:24px;font-weight:700;}
+  .hero-price em{display:block;font-style:normal;font-size:12px;font-weight:600;color:var(--blue);margin-top:2px;}
+  .hero-price strong{font-family:var(--display);font-stretch:125%;font-size:21px;font-weight:800;letter-spacing:-.03em;}
 
-  .facts{background:var(--ink);color:rgba(255,255,255,.85);}
-  .facts ul{display:grid;grid-template-columns:repeat(3,1fr);}
-  .facts li{padding:18px 24px;font-size:14.5px;font-weight:500;display:flex;align-items:center;gap:12px;border-left:1px solid var(--line-dark);}
-  .facts li:first-child{border-left:none;padding-left:0;}
-  .facts svg{width:20px;height:20px;flex-shrink:0;color:var(--blue-soft);}
+  .ticker{background:var(--ink);color:#fff;overflow:hidden;}
+  .ticker-track{display:flex;width:max-content;animation:ticker 38s linear infinite;}
+  .ticker:hover .ticker-track{animation-play-state:paused;}
+  .ticker ul{display:flex;flex-shrink:0;}
+  .ticker li{display:flex;align-items:center;gap:22px;padding:16px 0 16px 22px;white-space:nowrap;font-stretch:62%;font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.01em;}
+  .ticker li::after{content:"";width:8px;height:8px;background:var(--volt);transform:rotate(45deg);}
+  .ticker li.brand{color:rgba(255,255,255,.55);}
+  @keyframes ticker{to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion:reduce){.ticker-track{animation:none;}}
 
   /* ---------- Categorías ---------- */
   .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
@@ -186,16 +210,16 @@
   .prod-card:hover .prod-media img{transform:scale(1.04);}
   .prod-body{display:flex;flex-direction:column;flex:1;}
   .prod-cat{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
-  .prod-body h3{font-family:var(--body);font-size:17px;font-weight:600;line-height:1.3;margin-bottom:4px;}
+  .prod-body h3{font-family:var(--body);font-stretch:100%;font-size:16.5px;font-weight:600;line-height:1.3;letter-spacing:0;margin-bottom:4px;}
   .prod-qty{color:var(--ink-2);font-size:14px;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   .prod-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;}
-  .price{font-family:var(--display);font-weight:700;font-size:24px;font-variant-numeric:tabular-nums;}
+  .price{font-family:var(--display);font-stretch:125%;font-weight:800;font-size:19px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
 
   /* ---------- Combos ---------- */
   .combo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
   .combo-card{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .15s ease;}
   .combo-card:hover{border-color:var(--ink);}
-  .combo-media{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;background:var(--navy-deep);aspect-ratio:2/1;overflow:hidden;}
+  .combo-media{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;background:var(--navy-deep);aspect-ratio:2/1;overflow:hidden;}
   .combo-media picture{display:block;min-height:0;overflow:hidden;background:var(--photo-bg);}
   .combo-media img{width:100%;height:100%;object-fit:contain;}
   .combo-body{padding:26px 26px 24px;display:flex;flex-direction:column;flex:1;}
@@ -203,15 +227,17 @@
   .combo-card h3{font-size:30px;font-style:italic;font-weight:800;text-transform:uppercase;margin-bottom:10px;}
   .combo-card p{color:var(--ink-2);font-size:15px;margin-bottom:22px;}
   .combo-footer{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:18px;border-top:1px solid var(--line);}
-  .combo-price{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;font-variant-numeric:tabular-nums;}
+  .combo-price{font-family:var(--display);font-stretch:125%;font-weight:800;font-size:25px;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;}
   .combo-save{display:inline-block;font-size:13px;font-weight:600;color:var(--ok);margin-top:6px;}
+  .combo-sticker{position:absolute;top:14px;right:14px;z-index:1;background:var(--volt);color:var(--ink);font-stretch:62%;font-style:italic;font-weight:900;font-size:20px;text-transform:uppercase;line-height:1;padding:9px 12px 8px;border-radius:4px;transform:rotate(-4deg);box-shadow:0 8px 20px -8px rgba(0,0,0,.5);transition:transform .2s ease;}
+  .combo-card:hover .combo-sticker{transform:rotate(0deg) scale(1.05);}
 
   /* ---------- Cómo comprar ---------- */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink);}
   .step{padding:28px 32px 8px 0;}
   .step + .step{padding-left:32px;border-left:1px solid var(--line);}
-  .step-num{font-family:var(--display);font-style:italic;font-weight:800;font-size:64px;line-height:1;color:var(--navy);margin-bottom:14px;}
-  .step h3{font-family:var(--body);font-size:19px;font-weight:600;margin-bottom:8px;}
+  .step-num{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:52px;letter-spacing:-.04em;line-height:1;color:var(--navy);margin-bottom:14px;}
+  .step h3{font-family:var(--body);font-stretch:100%;font-size:19px;font-weight:650;line-height:1.3;letter-spacing:0;margin-bottom:8px;}
   .step p{color:var(--ink-2);font-size:15.5px;}
   .pay-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
   .pay-tag{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);}
@@ -233,7 +259,7 @@
   .about-copy p strong{color:var(--ink);}
   .about-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:32px;border-top:1px solid var(--line);}
   .about-stat{padding:18px 16px 0 0;}
-  .about-stat strong{display:block;font-family:var(--display);font-style:italic;font-weight:800;font-size:44px;line-height:1;color:var(--navy);}
+  .about-stat strong{display:block;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:36px;letter-spacing:-.04em;line-height:1;color:var(--navy);}
   .about-stat span{display:block;font-size:13.5px;color:var(--ink-2);margin-top:6px;}
 
   /* ---------- FAQ ---------- */
@@ -291,7 +317,7 @@
   .modal-body h2{font-size:40px;font-style:italic;font-weight:800;text-transform:uppercase;margin-bottom:10px;padding-right:32px;}
   .modal-body .prod-qty{font-size:15.5px;-webkit-line-clamp:unset;display:block;}
   .modal-desc{color:var(--ink-2);font-size:16px;line-height:1.6;margin-bottom:24px;}
-  .modal-price{font-family:var(--display);font-weight:700;font-size:40px;line-height:1;margin-bottom:24px;font-variant-numeric:tabular-nums;}
+  .modal-price{font-family:var(--display);font-stretch:125%;font-weight:800;font-size:32px;letter-spacing:-.03em;line-height:1;margin-bottom:24px;font-variant-numeric:tabular-nums;}
   .modal-body .btn{margin-top:auto;}
 
   .cart-card{background:var(--surface);border-radius:10px;max-width:480px;width:100%;max-height:86vh;overflow:auto;position:relative;padding:32px 28px 28px;box-shadow:0 30px 80px -24px rgba(8,14,34,.5);}
@@ -310,7 +336,7 @@
   .cart-remove{background:none;border:none;color:var(--ink-3);cursor:pointer;font-size:14px;margin-left:4px;width:28px;height:28px;border-radius:999px;}
   .cart-remove:hover{color:var(--red);}
   .cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;font-weight:600;font-size:16px;}
-  .cart-total{font-family:var(--display);font-weight:700;font-size:32px;font-variant-numeric:tabular-nums;}
+  .cart-total{font-family:var(--display);font-stretch:125%;font-weight:800;font-size:26px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
   .cart-clear{display:block;margin:14px auto 0;background:none;border:none;color:var(--ink-3);font-size:13.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
   .cart-clear:hover{color:var(--red);}
 
@@ -322,10 +348,9 @@
     .menu{display:none;}
     .menu-toggle{display:flex;}
     .hero-inner{grid-template-columns:1fr;min-height:0;padding-top:48px;padding-bottom:40px;gap:8px;}
-    .hero-visual img{max-width:380px;}
-    .facts ul{grid-template-columns:1fr;}
-    .facts li{padding:12px 0;border-left:none;border-top:1px solid var(--line-dark);}
-    .facts li:first-child{border-top:none;}
+    .hero h1{font-size:min(92px,calc((100vw - 32px) / 7.3));}
+    .hero-visual picture{max-width:320px;}
+    .ticker li{font-size:18px;padding:12px 0 12px 18px;gap:18px;}
     .cat-grid{grid-template-columns:1fr 1fr 1fr;gap:10px;}
     .cat-tile{aspect-ratio:3/4;}
     .cat-label{left:14px;right:14px;bottom:14px;}
@@ -359,7 +384,7 @@
     .prod-body h3{font-size:15.5px;}
     .prod-qty{font-size:13px;}
     .prod-footer{flex-direction:column;align-items:stretch;gap:8px;}
-    .price{font-size:22px;}
+    .price{font-size:18px;}
     .contact-list li{grid-template-columns:1fr;gap:4px;}
     .modal-overlay{padding:12px;}
   }
@@ -397,50 +422,62 @@
 <div class="hero-inner wrap">
 <div class="hero-copy">
 <span class="kicker">Suplementos deportivos · Formosa</span>
-<h1>Potenciá<span>tus metas.</span></h1>
+<div class="goal-switch" role="group" aria-label="Elegí tu objetivo">
+<button type="button" data-goal="muscular" aria-pressed="true">Fuerza</button>
+<button type="button" data-goal="energia" aria-pressed="false">Energía</button>
+<button type="button" data-goal="recuperacion" aria-pressed="false">Recuperación</button>
+</div>
+<h1>Potenciá <span class="hero-word" id="heroWord"><span>tu fuerza.</span></span></h1>
 <p>Proteínas, creatina, hidratación y recuperación con stock real. Armás tu pedido acá, lo confirmás por WhatsApp y te lo enviamos a todo el país.</p>
 <div class="hero-actions">
-<a class="btn btn-light" href="#catalogo">Ver catálogo <span class="arrow" aria-hidden="true">→</span></a>
+<a class="btn btn-light" href="#catalogo" id="heroCta" data-goto-cat="muscular"><span id="heroCtaText">Ver productos de fuerza</span> <span class="arrow" aria-hidden="true">→</span></a>
 <a class="btn btn-outline-light" href="#combos">Ver combos</a>
 </div>
 </div>
-<div class="hero-visual">
-<picture>
+<div class="hero-visual" id="heroVisual">
+<picture class="active" data-goal="muscular">
 <source srcset="images/whey-protein-chocolate-suizo.webp" type="image/webp"/>
 <img src="images/whey-protein-chocolate-suizo.jpg" alt="Whey Protein Star Nutrition Chocolate Suizo" width="700" height="638" fetchpriority="high"/>
 </picture>
-<a class="hero-price" href="#catalogo" id="heroPrice"><small>Whey Protein 908g</small><strong class="num">$70.200</strong></a>
+<picture data-goal="energia">
+<source srcset="images/hydro-max-1320g.webp" type="image/webp"/>
+<img src="images/hydro-max-1320g.jpg" alt="Hydro Max Sport Drink Nutremax 1320g" width="700" height="638"/>
+</picture>
+<picture data-goal="recuperacion">
+<source srcset="images/collagen-sport.webp" type="image/webp"/>
+<img src="images/collagen-sport.jpg" alt="Collagen Sport Star Nutrition" width="700" height="638"/>
+</picture>
+<a class="hero-price" href="#catalogo" id="heroPrice"><small></small><strong class="num"></strong><em>Ver detalle →</em></a>
 </div>
 </div>
 </section>
 
-<div class="facts">
-<ul class="wrap">
-<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>Stock real en Formosa, sin intermediarios</li>
-<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3z"/><path d="M14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>Envíos a todo el país</li>
-<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>Te atendemos directo por WhatsApp</li>
-</ul>
+<div class="ticker" role="region" aria-label="Stock real en Formosa. Envíos a todo el país. Atención directa por WhatsApp. Marcas: Star Nutrition, Granger, Nutremax, Gold Nutrition, Bro's, One Fit y Natural Whey.">
+<div class="ticker-track" aria-hidden="true">
+<ul><li>Stock real en Formosa</li><li class="brand">Star Nutrition</li><li>Envíos a todo el país</li><li class="brand">Granger</li><li>Atención directa por WhatsApp</li><li class="brand">Nutremax</li><li>Combos con descuento</li><li class="brand">Gold Nutrition</li><li class="brand">Bro's</li><li class="brand">One Fit</li><li class="brand">Natural Whey</li></ul>
+<ul><li>Stock real en Formosa</li><li class="brand">Star Nutrition</li><li>Envíos a todo el país</li><li class="brand">Granger</li><li>Atención directa por WhatsApp</li><li class="brand">Nutremax</li><li>Combos con descuento</li><li class="brand">Gold Nutrition</li><li class="brand">Bro's</li><li class="brand">One Fit</li><li class="brand">Natural Whey</li></ul>
+</div>
 </div>
 
 <!-- CATEGORÍAS -->
 <section id="categorias">
 <div class="wrap">
-<div class="section-head">
+<div class="section-head reveal">
 <div>
 <span class="kicker">Comprá por objetivo</span>
 <h2>¿Qué estás buscando?</h2>
 </div>
 </div>
 <div class="cat-grid">
-<a class="cat-tile" href="#catalogo" data-goto-cat="muscular">
+<a class="cat-tile reveal" style="--d:0.00s" href="#catalogo" data-goto-cat="muscular">
 <picture><source srcset="images/whey-protein-cookies-cream.webp" type="image/webp"/><img src="images/whey-protein-cookies-cream.jpg" alt="" loading="lazy"/></picture>
 <div class="cat-label"><h3>Ganancia muscular<small data-cat-count="muscular"></small></h3><span class="arrow" aria-hidden="true">→</span></div>
 </a>
-<a class="cat-tile" href="#catalogo" data-goto-cat="energia">
+<a class="cat-tile reveal" style="--d:0.08s" href="#catalogo" data-goto-cat="energia">
 <picture><source srcset="images/hydro-max-1320g.webp" type="image/webp"/><img src="images/hydro-max-1320g.jpg" alt="" loading="lazy"/></picture>
 <div class="cat-label"><h3>Energía<small data-cat-count="energia"></small></h3><span class="arrow" aria-hidden="true">→</span></div>
 </a>
-<a class="cat-tile" href="#catalogo" data-goto-cat="recuperacion">
+<a class="cat-tile reveal" style="--d:0.16s" href="#catalogo" data-goto-cat="recuperacion">
 <picture><source srcset="images/collagen-sport.webp" type="image/webp"/><img src="images/collagen-sport.jpg" alt="" loading="lazy"/></picture>
 <div class="cat-label"><h3>Recuperación<small data-cat-count="recuperacion"></small></h3><span class="arrow" aria-hidden="true">→</span></div>
 </a>
@@ -451,7 +488,7 @@
 <!-- PRODUCTOS -->
 <section class="section-white" id="catalogo">
 <div class="wrap">
-<div class="section-head">
+<div class="section-head reveal">
 <div>
 <span class="kicker">Catálogo</span>
 <h2>Productos</h2>
@@ -478,7 +515,7 @@
 <!-- COMBOS -->
 <section id="combos">
 <div class="wrap">
-<div class="section-head">
+<div class="section-head reveal">
 <div>
 <span class="kicker">Combos</span>
 <h2>Armados para ahorrar</h2>
@@ -492,24 +529,24 @@
 <!-- CÓMO COMPRAR (incluye medios de pago) -->
 <section class="section-white" id="como-comprar">
 <div class="wrap">
-<div class="section-head">
+<div class="section-head reveal">
 <div>
 <span class="kicker">Cómo comprar</span>
 <h2>Tres pasos, sin vueltas</h2>
 </div>
 </div>
 <div class="steps">
-<div class="step">
+<div class="step reveal">
 <div class="step-num">01</div>
 <h3>Armá tu pedido</h3>
 <p>Sumá productos o combos al carrito desde el catálogo.</p>
 </div>
-<div class="step">
+<div class="step reveal">
 <div class="step-num">02</div>
 <h3>Envialo por WhatsApp</h3>
 <p>Tocá "Finalizar pedido" y se abre un mensaje con todo listo para mandarnos. Ahí coordinamos el envío o el retiro.</p>
 </div>
-<div class="step">
+<div class="step reveal">
 <div class="step-num">03</div>
 <h3>Pagá y recibí</h3>
 <p>Aceptamos estos medios de pago:</p>
@@ -522,7 +559,7 @@
 <!-- TESTIMONIOS (oculta mientras TESTIMONIALS esté vacío) -->
 <section id="testimonios" hidden>
 <div class="wrap">
-<div class="section-head">
+<div class="section-head reveal">
 <div>
 <span class="kicker">Clientes</span>
 <h2>Lo que dicen</h2>
@@ -535,13 +572,13 @@
 <!-- SOBRE NOSOTROS -->
 <section id="nosotros">
 <div class="about wrap">
-<div class="about-visual">
+<div class="about-visual reveal">
 <picture>
 <source srcset="images/energym-logo-banner.webp" type="image/webp"/>
 <img src="images/energym-logo-banner.jpg" alt="Logo de EnerGym Suplementos" width="600" height="600" loading="lazy"/>
 </picture>
 </div>
-<div class="about-copy">
+<div class="about-copy reveal" style="--d:.1s">
 <span class="kicker">Nosotros</span>
 <h2 class="h2">Una tienda de Formosa, para quienes entrenan</h2>
 <p>Trabajamos con marcas reconocidas como Star Nutrition, Granger Health, Nutremax y Bro's. Tenemos el stock acá, así que lo que ves en el catálogo es lo que hay.</p>
@@ -559,7 +596,7 @@
 <!-- FAQ -->
 <section class="section-white" id="faq">
 <div class="wrap faq-layout">
-<div class="section-head">
+<div class="section-head reveal">
 <div>
 <span class="kicker">Preguntas frecuentes</span>
 <h2>Dudas comunes</h2>
@@ -787,7 +824,7 @@
 
   function productCardHtml(p){
     return `
-      <article class="prod-card" data-cat="${p.cat}" data-id="${p.id}" data-name="${escapeHtml(p.name)}" data-price="${p.price}" tabindex="0" role="button" aria-label="Ver detalle de ${escapeHtml(p.name)}">
+      <article class="prod-card reveal" data-cat="${p.cat}" data-id="${p.id}" data-name="${escapeHtml(p.name)}" data-price="${p.price}" tabindex="0" role="button" aria-label="Ver detalle de ${escapeHtml(p.name)}">
         <div class="prod-media">${pictureTag(p.img, p.name)}</div>
         <div class="prod-body">
           <span class="prod-cat">${CATEGORY_LABELS[p.cat]}</span>
@@ -812,8 +849,8 @@
   function comboCardHtml(c){
     const imgsHtml = c.imgs.map(name => pictureTag(name, c.name)).join('');
     return `
-      <article class="combo-card" data-id="${c.id}" data-name="${escapeHtml(c.name)}" data-price="${c.price}" tabindex="0" role="button" aria-label="Ver detalle de ${escapeHtml(c.name)}">
-        <div class="combo-media">${imgsHtml}</div>
+      <article class="combo-card reveal" data-id="${c.id}" data-name="${escapeHtml(c.name)}" data-price="${c.price}" tabindex="0" role="button" aria-label="Ver detalle de ${escapeHtml(c.name)}">
+        <div class="combo-media">${imgsHtml}<span class="combo-sticker">${escapeHtml(c.save)}</span></div>
         <div class="combo-body">
           <span class="combo-badge">${escapeHtml(c.badge)}</span>
           <h3>${escapeHtml(c.name)}</h3>
@@ -851,14 +888,64 @@
     el.textContent = n + (n === 1 ? ' producto' : ' productos');
   });
 
-  // Precio del producto del hero, tomado del catálogo para que no quede desactualizado
-  const heroProduct = PRODUCTS.find(p => p.img === 'whey-protein-chocolate-suizo');
+  /* ================= HERO: SELECTOR DE OBJETIVO ================= */
+  // Cada objetivo muestra un producto del catálogo; nombre y precio salen de PRODUCTS.
+  const HERO_GOALS = {
+    muscular:     { word:'tu fuerza.',       cta:'Ver productos de fuerza',       img:'whey-protein-chocolate-suizo', label:'Whey Protein' },
+    energia:      { word:'tu energía.',      cta:'Ver productos de energía',      img:'hydro-max-1320g',              label:'Hydro Max Sport Drink' },
+    recuperacion: { word:'tu recuperación.', cta:'Ver productos de recuperación', img:'collagen-sport',               label:'Collagen Sport' }
+  };
+  const heroWord = document.getElementById('heroWord');
+  const heroCta = document.getElementById('heroCta');
+  const heroCtaText = document.getElementById('heroCtaText');
   const heroPrice = document.getElementById('heroPrice');
-  if (heroProduct){
-    heroPrice.querySelector('strong').textContent = formatPrice(heroProduct.price);
-    heroPrice.addEventListener('click', (e) => { e.preventDefault(); openModalForProduct(heroProduct); });
+  const heroVisual = document.getElementById('heroVisual');
+  const goalButtons = document.querySelectorAll('.goal-switch button');
+  const goalKeys = Object.keys(HERO_GOALS);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let currentGoal = null;
+  let heroProduct = null;
+
+  function setGoal(goal){
+    if (goal === currentGoal) return;
+    const g = HERO_GOALS[goal];
+    const first = currentGoal === null;
+    currentGoal = goal;
+    heroProduct = PRODUCTS.find(p => p.img === g.img) || null;
+    goalButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.goal === goal)));
+    heroVisual.querySelectorAll('picture').forEach(pic => pic.classList.toggle('active', pic.dataset.goal === goal));
+    heroCta.dataset.gotoCat = goal;
+    heroCtaText.textContent = g.cta;
+    const applyWord = () => { heroWord.firstElementChild.textContent = g.word; heroWord.classList.remove('swap'); };
+    if (first || reduceMotion){ applyWord(); } else { heroWord.classList.add('swap'); setTimeout(applyWord, 220); }
+    heroPrice.hidden = !heroProduct;
+    if (heroProduct){
+      heroPrice.querySelector('small').textContent = g.label + ' · ' + heroProduct.qty.split(' · ')[0];
+      heroPrice.querySelector('strong').textContent = formatPrice(heroProduct.price);
+    }
+  }
+  heroPrice.addEventListener('click', (e) => { e.preventDefault(); if (heroProduct) openModalForProduct(heroProduct); });
+
+  // Rota sola hasta que la persona elige un objetivo (nunca con reduced-motion)
+  let goalTimer = reduceMotion ? null : setInterval(() => {
+    if (document.hidden) return;
+    setGoal(goalKeys[(goalKeys.indexOf(currentGoal) + 1) % goalKeys.length]);
+  }, 4500);
+  goalButtons.forEach(b => b.addEventListener('click', () => {
+    clearInterval(goalTimer); goalTimer = null;
+    setGoal(b.dataset.goal);
+  }));
+  setGoal('muscular');
+
+  /* ================= REVEAL AL SCROLLEAR ================= */
+  if ('IntersectionObserver' in window && !reduceMotion){
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    }), { rootMargin:'0px 0px -8% 0px' });
+    document.querySelectorAll('.prod-card.reveal, .combo-card.reveal').forEach((el, i) => el.style.setProperty('--d', ((i % 4) * 0.06) + 's'));
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   } else {
-    heroPrice.remove();
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   }
 
   /* ================= JSON-LD (SEO) ================= */
@@ -976,6 +1063,8 @@
     else { cart.push({ id, name, price, qty: 1 }); }
     saveCart();
     showToast(name + ' agregado al carrito');
+    const cartBtn = document.getElementById('cartBtn');
+    cartBtn.classList.remove('bump'); void cartBtn.offsetWidth; cartBtn.classList.add('bump');
   }
 
   function removeFromCart(id){
