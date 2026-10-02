@@ -56,3 +56,7 @@ El dueño tiene dos cuentas de GitHub en su navegador: `energymsuplementosfsa-ar
 ## Caché de imágenes
 
 `_headers` cachea `/images/*` 1 día (con `stale-while-revalidate`), **no** `immutable`: las fotos se re-procesan con el mismo nombre y además Cloudflare aplica ese header también a los 404 — con `immutable` un 404 visto durante un deploy quedaba cacheado un año en el navegador (pasó con el logo del header). Si se reemplaza una imagen y tiene que verse ya, cambiarle el nombre.
+
+## Favicon
+
+Monograma "E" itálica blanca + swoosh celeste sobre navy (opción elegida por el dueño entre 4). Los PNG (16/32/48/192/512, `apple-touch-icon` 180 cuadrado sin redondear) y `favicon.ico` (PNG 16/32/48 empaquetados) se generaron renderizando el diseño con Chrome headless, con la fuente Archivo. A 16px se omite el swoosh porque no se distingue. Los links llevan `?v=N`: subir N si se cambia el favicon, porque los navegadores lo cachean mucho.
