@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://energym-web.energym-suplementos-fsa.workers.dev/sitemap.xml

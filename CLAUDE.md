@@ -1,0 +1,43 @@
+# EnerGym Suplementos — sitio web
+
+Sitio estático (sin build step) para EnerGym Suplementos, tienda de suplementos deportivos en Formosa, Argentina. Todo vive en un único `index.html` con datos de productos/combos embebidos en arrays JS, más la carpeta `images/`.
+
+## Stack y despliegue
+
+- Un solo archivo `index.html` (HTML + CSS + JS inline, sin frameworks ni bundler).
+- `images/` tiene cada foto en `.jpg` (fallback) y `.webp` (preferido), vía `<picture>`.
+- `_headers` configura cache y headers de seguridad para Cloudflare (reemplazó a un viejo `netlify.toml`, ya no se usa Netlify).
+- Repo en GitHub: `energymsuplementosfsa-art/energym-web` (cuenta de GitHub propia del negocio, **no** la cuenta personal/empresarial del dueño).
+- Deploy automático: Cloudflare Pages/Workers está conectado a este repo vía "Connect to Git". Cada push a `main` dispara un redeploy solo. URL actual: `https://energym-web.energym-suplementos-fsa.workers.dev` (sin dominio propio todavía).
+- No hay backend. El carrito y el formulario de contacto arman un link de `https://wa.me/5493704348191?text=...` y abren WhatsApp — ahí se cierran las ventas, no hay pasarela de pago ni base de datos.
+
+## Estructura de datos (dentro de index.html)
+
+- `PRODUCTS`: array de productos individuales (`id`, `cat`, `name`, `qty`, `price`, `img`). `img` es el nombre base del archivo en `images/` (sin extensión).
+- `COMBOS`: array de combos (`id`, `badge`, `name`, `price`, `save`, `desc`, `imgs: [...]`). Los combos reutilizan las mismas imágenes de `PRODUCTS`, no tienen fotos propias — si mejorás una foto de producto, el combo se actualiza solo.
+- Categorías: `muscular` (Ganancia Muscular), `energia` (Energía), `recuperacion` (Recuperación).
+
+## Convención de fotos de catálogo
+
+La mayoría de las fotos de producto se generaron recortando las plantillas de Instagram Story (formato 1080x1920) que están en `STOCK/Nueva carpeta/` (carpeta del usuario, fuera de este repo). Esas plantillas tienen el producto siempre en la misma posición relativa. El recorte que da buen resultado:
+
+- Box de crop: `(160, 485, 950, 1205)` sobre la imagen original 1080x1920.
+- Resize final a 700px de ancho, manteniendo aspect ratio.
+- Guardar `.jpg` calidad 85 y `.webp` calidad 82 (método 6) con el mismo nombre base que usa `img:` en `PRODUCTS`.
+- Fondo: las plantillas ya traen un degradé azul marino que combina con el tema oscuro del sitio — no hace falta quitarlo ni reemplazarlo.
+
+Pendiente conocido: `creatine-frutos-rojos.jpg/webp` sigue con una foto de menor calidad porque no existe una plantilla "story" de esa variedad en STOCK. Si aparece una fuente mejor, conviene re-procesarla con el mismo pipeline para que quede consistente con el resto.
+
+`hydro-max-660g` muestra "SPORT DRIN" cortado y `hydro-max-660g`/`hydro-max-1320g` tienen fondo ligeramente distinto a propósito — es una limitación de la foto original del proveedor, no un bug de recorte.
+
+## Pendientes / backlog de UI (pedido por el dueño, Valentin, como "PO")
+
+- Sumar prueba social (testimonios de clientes reales). La sección `#testimonios` ya existe y se muestra sola cuando el array `TESTIMONIALS` (en `index.html`) tiene elementos `{ name, detail, text }`. Falta que el dueño pase reseñas reales — **nunca inventar testimonios**.
+- Evaluar dominio propio en vez de `workers.dev` (mejora SEO y preview de links compartidos).
+- ~~Agregar `sitemap.xml`/`robots.txt`~~ (hecho). Si se cambia de dominio, actualizar la URL en: `robots.txt`, `sitemap.xml`, `<link rel="canonical">`, `og:url`/`og:image`/`twitter:image` y `SITE_URL` en `index.html`.
+- Aclarar si hay diferencia de precio entre transferencia y efectivo en la sección de medios de pago.
+- **Último paso (después de lo anterior):** rediseño visual con criterio de product design — más estético, con identidad propia de marca y que no se vea "hecho por IA" (evitar los clichés de degradés neón, glow cyan, emojis como íconos, cards genéricas). Se encara cuando el resto del backlog esté cerrado.
+
+## Cuidado con las cuentas
+
+El dueño tiene dos cuentas de GitHub en su navegador: `energymsuplementosfsa-art` (la de este proyecto) y otra personal/empresarial (`valentinnzarate`, usada para otro proyecto en curso). **Nunca** pushear ni autenticar con la cuenta personal para este repo. Si `git push` falla pidiendo credenciales de forma no interactiva, es normal — Git Credential Manager en Windows necesita un login interactivo en navegador; pedirle al dueño que corra el push él mismo desde una terminal abierta en esta carpeta.
