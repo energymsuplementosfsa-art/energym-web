@@ -178,11 +178,12 @@
 
   /* ---------- Categorías ---------- */
   .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  .cat-tile{position:relative;display:block;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;background:var(--navy);color:#fff;}
-  .cat-tile picture,.cat-tile img{width:100%;height:100%;}
-  .cat-tile img{object-fit:cover;transition:transform .4s ease;}
+  .cat-tile{position:relative;display:block;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;background:var(--photo-bg);color:#fff;}
+  /* El producto entra entero (contain) en la parte de arriba; el título va abajo sobre el navy */
+  .cat-tile picture{position:absolute;inset:5% 5% 20% 5%;}
+  .cat-tile img{width:100%;height:100%;object-fit:contain;transition:transform .4s ease;}
   .cat-tile:hover img{transform:scale(1.04);}
-  .cat-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,18,48,.92) 0%,rgba(8,18,48,.25) 45%,transparent 70%);}
+  .cat-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,18,48,.85) 0%,rgba(8,18,48,.2) 30%,transparent 45%);}
   .cat-label{position:absolute;left:24px;right:24px;bottom:22px;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;}
   .cat-label h3{color:#fff;font-size:34px;font-style:italic;font-weight:800;text-transform:uppercase;}
   .cat-label small{display:block;font-family:var(--body);font-stretch:100%;font-size:13.5px;font-weight:500;font-style:normal;text-transform:none;color:rgba(255,255,255,.75);margin-top:6px;letter-spacing:0;}
@@ -375,6 +376,9 @@
     .logo img{height:36px;}
     .cat-grid{grid-template-columns:1fr;}
     .cat-tile{aspect-ratio:16/9;}
+    .cat-tile picture{inset:6% 4% 6% 42%;}
+    .cat-tile::after{background:linear-gradient(to right,rgba(8,18,48,.85) 0%,rgba(8,18,48,.2) 45%,transparent 60%);}
+    .cat-label{right:58%;}
     .cat-label h3{font-size:30px;}
     .catalog-controls{flex-direction:column;flex-wrap:nowrap;align-items:stretch;}
     .tabs{min-width:0;}
@@ -470,7 +474,7 @@
 </div>
 <div class="cat-grid">
 <a class="cat-tile reveal" style="--d:0.00s" href="#catalogo" data-goto-cat="muscular">
-<picture><source srcset="images/whey-protein-cookies-cream.webp" type="image/webp"/><img src="images/whey-protein-cookies-cream.jpg" alt="" loading="lazy"/></picture>
+<picture><source srcset="images/whey-protein-chocolate-suizo.webp" type="image/webp"/><img src="images/whey-protein-chocolate-suizo.jpg" alt="" loading="lazy"/></picture>
 <div class="cat-label"><h3>Ganancia muscular<small data-cat-count="muscular"></small></h3><span class="arrow" aria-hidden="true">→</span></div>
 </a>
 <a class="cat-tile reveal" style="--d:0.08s" href="#catalogo" data-goto-cat="energia">
